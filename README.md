@@ -47,6 +47,40 @@ Cuando el agente es ejecutado el codigo de python utiliza las diferentes librera
 ```
 Una vez recolectada esta información el agente la envia al API que se especifica las variables de entorno configuradas, si no se establece la comunicación con el API va generar error.
 
+### Cómo ejecutar el API
+El API puede ser ejcutada de dos formas: 
+#### Opcion 1 Docker
+Se ha hecho el build de una imagen utilizando dockerfile que se encuentra en la carpeta API, dicha imagen ha sido subida a docker hub en el siguiente repositorio **fabian8a/api_inspector:v2**, este repositorio es publico por lo cual se puede hacer pull de la imagen libremente.
+Para ejecutar este container se debe tener instalado docker y la ejecucion se puede realizar utilizando el siguiente comando.
+```bash
+docker run -itd -p 5000:5000 fabian8a/api_inspector:v2
+```
+
+#### Opcion 2 servidor con python instalado
+
+Esta opcion requiere que se ejecuten lo siguientes pasos en la carpeta API:
+1.	Para ejecutar el agente se debe tener Python instalado, para mas detalle verifica este [link](https://www.python.org/downloads/).
+
+2.	Instalar las dependencias que el agente requiere, para ello se puede ejecutar:
+```python
+pip install -r requirements.txt
+```
+3.  Ejecutar el api.py
+```python
+python api.py
+```
+
+### API Endpoints
+
+#### /report
+Este endpoint acepta dos metodos POST y GET
+##### POST
+Este metodo es usado para cargar la información generada por el agente.
+##### GET
+Este metodo es usado para obtener la información del S3, las requests deben hacerce especificando la IP a consultar en el query.
+```bash
+curl http://IP_API:5000/report?ip='10.10.10.1'
+```
 
 
 
