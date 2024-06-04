@@ -73,7 +73,7 @@ python api.py
 ### API Endpoints
 
 #### /report
-Este endpoint acepta dos metodos POST y GET
+Este endpoint acepta dos metodos POST y GET.
 ##### POST
 Este metodo es usado para cargar la información generada por el agente.
 ##### GET
@@ -82,9 +82,14 @@ Este metodo es usado para obtener la información del S3, las requests deben hac
 curl http://IP_API:5000/report?ip='10.10.10.1'
 ```
 
+#### /health
+Este endpoint solo acepta el metodo GET.
 
-
-
+##### GET
+Este metodo se usa para validar que el API este corriendo.
+```bash
+curl http://IP_API:5000/health
+```
 
 
 
