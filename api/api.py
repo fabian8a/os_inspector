@@ -34,7 +34,6 @@ def get_data():
     print(query_param)
     server_ip = ipstring.replace("." , "_")
     response =  s3.list_objects_v2(Bucket=bucket_name,Prefix=server_ip)
-    app.logger.info(response)
     objectname=response['Contents'][0]['Key']
     response2 = s3.get_object(Bucket=bucket_name, Key=objectname)
     object_body = response2['Body'].read()
