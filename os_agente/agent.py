@@ -20,7 +20,7 @@ def get_system_info():
 def send_data_to_api(data):
     api_ip = os.getenv('API_IP')
     api_port = os.getenv('API_PORT')
-    api_url = 'http://'+api_ip+ ':'+api_port+'/collect'
+    api_url = 'http://'+api_ip+ ':'+api_port+'/report'
     headers = {'Content-Type': 'application/json'}
     response = requests.post(api_url, data=json.dumps(data), headers=headers)
     return response.status_code
