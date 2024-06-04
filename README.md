@@ -8,7 +8,8 @@ Este repositorio ha sido divido en  las siguientes carpetas:
 
 •**api**: Esta carpeta contiene el archivo api.py que corre un API usando flask la cual expone dos endpoints uno para recopilar información enviada por el agente y el otro endpoint que permite obtener la información recopilada.
 
-## Como ejecutar el agente
+## Cómo ejecutar el agente
+Los pasos escritos a continuacion deben realizarce en la carpeta agent.
 
 ### Requisitos
 
@@ -23,6 +24,33 @@ pip install -r requirements.txt
 export API_IP= api server
 export API_PORT='5000'
 ```
+### Ejecución del agente
+
+Una vez se ha finalizado la ejecución de los requisitos ya se puede correr el agent.py 
+```python
+python agent.py
+```
+Si el proceso se ejecuto correctamente se obtiene un mensaje de **success** de lo contrario generará mensaje **error**.
+
+### Funcionamiento interno del agent
+
+Cuando el agente es ejecutado el codigo de python utiliza las diferentes librerarias para recopilar la información del sistema, esta información la guarda en un diccionario de python el cual es convertido a JSON posteriormente. La estructura del archivo es la siguiente.
+```json
+{
+    "cpu": "CPU",
+    "os_username": "USER",
+    "os_name": "OS",
+    "server_ip": "IP",
+    "timestamp": "2024-06-01 12:26:24",
+    "os_version": "VERSION"
+}
+```
+Una vez recolectada esta información el agente la envia al API que se especifica las variables de entorno configuradas, si no se establece la comunicación con el API va generar error.
+
+
+
+
+
 
 
 
