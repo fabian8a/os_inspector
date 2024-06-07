@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 import boto3
+import os
 from datetime import datetime
 
 app = Flask(__name__)
@@ -18,7 +19,8 @@ def upload_data():
 
     with open(filename,'w') as file_json:
          json.dump(data, file_json, indent=4)
-    upload_s3(filename,'os-inspector-data', filename)     
+    upload_s3(filename,'os-inspector-data', filename)
+    os.remove(filename)     
     return jsonify({"status": "success"}), 200
 
 @app.route('/health', methods=['GET'] )
