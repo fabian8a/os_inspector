@@ -4,6 +4,7 @@ import requests
 import json
 import platform
 import psutil
+#import time
 from datetime import datetime
 
 def get_system_info():
@@ -14,6 +15,7 @@ def get_system_info():
     info['server_ip'] = socket.gethostbyname(socket.gethostname())
     info['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     info['os_version'] = platform.version()
+    info['mem'] = psutil.virtual_memory()[2]
     return info
 
 
@@ -26,9 +28,12 @@ def send_data_to_api(data):
     return response.status_code
 
 if __name__ == '__main__':
-    system_info = get_system_info()
-    http_code = send_data_to_api(system_info)
-    if http_code == 200:
-        print('success')
-    else:
-        print('error')
+    #while True:
+        system_info = get_system_info()
+        http_code = send_data_to_api(system_info)
+        if http_code == 200:
+            print('success')
+        else:
+            print('error: ',http_code)
+        #time.sleep(5)
+	

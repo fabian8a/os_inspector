@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 import boto3
+import os
 from datetime import datetime
 
 app = Flask(__name__)
@@ -10,15 +11,18 @@ def upload_data():
     data = request.json 
     print(data)
     
-    server_ip = data['server_ip']
-    server_ip2 = server_ip.replace("." , "_")
+    server_ip_address = data['server_ip']
+    server_ip_name = server_ip_address.replace("." , "_")
     date_str = datetime.now().strftime('%Y-%m-%d')
-    filename = f"{server_ip2}_{date_str}.json"
+    #timestamp = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+    filename = f"{server_ip_name}_{date_str}.json"
+    #filename = f"{server_ip_name}_{date_str}_{timestamp}.json"
 
 
     with open(filename,'w') as file_json:
          json.dump(data, file_json, indent=4)
-    upload_s3(filename,'os-inspector-data', filename)     
+    upload_s3(filename,'os-inspector-data', filename)
+    os.remove(filename)     
     return jsonify({"status": "success"}), 200
 
 @app.route('/health', methods=['GET'] )
@@ -54,4 +58,3 @@ def upload_s3(file, bucket, identifier):
 if __name__ == '__main__':
     s3 = boto3.client('s3')
     app.run(host='0.0.0.0', port=5000, debug=True)
-    
